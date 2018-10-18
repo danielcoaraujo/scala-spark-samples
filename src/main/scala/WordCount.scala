@@ -12,13 +12,13 @@ object WordCount {
 		val words = lines
 			.flatMap(word => word
 					.toLowerCase
-					.split("\\W")
-					.filter(word => word != ""))
+					.split("\\W+"))
 			.countByValue()
 			.toSeq
 
 		words
-			.sortBy(map => map._2)
+			.map(map => (map._2, map._1))
+			.sorted
 			.foreach(println)
 	}
 
