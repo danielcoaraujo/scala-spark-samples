@@ -10,9 +10,7 @@ object WordCount {
 		val lines = sc.textFile("./resources/book.txt")
 
 		val words = lines
-			.flatMap(word => word
-					.toLowerCase
-					.split("\\W+"))
+			.flatMap(word => word.toLowerCase.split("\\W+"))
 			.countByValue()
 			.toSeq
 

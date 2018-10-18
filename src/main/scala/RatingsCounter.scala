@@ -8,7 +8,7 @@ object RatingsCounter {
 
     val sc = new SparkContext("local[*]", "RatingsCounter")
 
-    val lines = sc.textFile("./resources/ml-100k/u.data")
+    val lines = sc.textFile("./resources/u.data")
 
     val ratings = lines.map(x => x.toString.split("\t")(2))
 
