@@ -1,3 +1,5 @@
+package rdd
+
 import org.apache.spark.SparkContext
 
 object PurchaseByCustomer {
