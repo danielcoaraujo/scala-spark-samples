@@ -6,7 +6,7 @@ import org.apache.spark.SparkContext
 object WordCount {
 
 	def main(args: Array[String]): Unit = {
-		Logger.getLogger("WordCount").setLevel(Level.ERROR)
+		Logger.getLogger("org").setLevel(Level.ERROR)
 
 		val sc = new SparkContext("local[*]", "WordCount")
 		val lines = sc.textFile("./resources/book.txt")

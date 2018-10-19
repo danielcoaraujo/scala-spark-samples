@@ -6,7 +6,7 @@ import org.apache.spark.SparkContext
 object MinimumTemperature {
 
 	def main(args: Array[String]): Unit = {
-		Logger.getLogger("MinimumTemperature").setLevel(Level.ERROR)
+		Logger.getLogger("org").setLevel(Level.ERROR)
 
 		val sc = new SparkContext("local[*]", "MinimumTemperature")
 		val parsedLines = sc.textFile("./resources/1800.csv").map(parseLines)

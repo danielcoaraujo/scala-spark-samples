@@ -17,7 +17,7 @@ object FriendsByAge {
     }
 
     def main(args: Array[String]): Unit = {
-        Logger.getLogger("FriendsByAge").setLevel(Level.ERROR)
+        Logger.getLogger("org").setLevel(Level.ERROR)
 
         val spark = SparkSession.builder()
             .appName("FriendsByAge")

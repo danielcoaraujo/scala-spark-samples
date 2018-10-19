@@ -6,7 +6,7 @@ import org.apache.spark.SparkContext
 object RatingsCounter {
 
   def main(args: Array[String]): Unit = {
-    Logger.getLogger("scala").setLevel(Level.ERROR)
+    Logger.getLogger("org").setLevel(Level.ERROR)
 
     val sc = new SparkContext("local[*]", "RatingsCounter")
 
