@@ -4,18 +4,8 @@ import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.SparkSession
 
 object PopularMoviesDataSets {
-	case class Movie(id: Int, personId: Int, rating: Int, timestamp: Int)
 
-	def parseToMovie(line: String) : Movie = {
-		val fields = line.split("\t")
-        val id = fields(1).toInt
-        val personId = fields(0).toInt
-		val rating = fields(2).toInt
-		val timestamp = fields(3).toInt
-		Movie(id, personId, rating, timestamp)
-	}
-
-	def main(args: Array[String]): Unit = {
+	def main(args: Array[String]) = {
 		Logger.getLogger("org").setLevel(Level.ERROR)
 
 		val spark = SparkSession.builder()
@@ -45,16 +35,27 @@ object PopularMoviesDataSets {
         spark.stop()
     }
 
+    case class Movie(id: Int, personId: Int, rating: Int, timestamp: Int)
+
+    def parseToMovie(line: String) : Movie = {
+        val fields = line.split("\t")
+        val id = fields(1).toInt
+        val personId = fields(0).toInt
+        val rating = fields(2).toInt
+        val timestamp = fields(3).toInt
+        Movie(id, personId, rating, timestamp)
+    }
+
     def loadMovieNames(sparkSession: SparkSession) = {
         val lines = sparkSession
             .sparkContext
             .textFile("./resources/u.item")
 
-		lines.map(line => {
-			val fields = line.split("\\|")
-			val id = fields(0).toInt
-			val name = fields(1)
-			(id, name)
-		}).collect().toMap
+        lines.map(line => {
+            val fields = line.split("\\|")
+            val id = fields(0).toInt
+            val name = fields(1)
+            (id, name)
+        }).collect().toMap
     }
 }
