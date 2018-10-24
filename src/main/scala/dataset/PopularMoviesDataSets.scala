@@ -35,13 +35,12 @@ object PopularMoviesDataSets {
             .count()
             .orderBy($"count".desc)
             .take(10)
-            .foreach(println)
 
         val mapIdName = loadMovieNames(spark)
 
-//        for(movie <- topMovies){
-//            println(movie(0), mapIdName.asInstanceOf[Int])
-//        }
+        for(movie <- topMovies){
+            println(mapIdName(movie(0).asInstanceOf[Int]) + ": " + movie(1))
+        }
 
         spark.stop()
     }
@@ -50,11 +49,12 @@ object PopularMoviesDataSets {
         val lines = sparkSession
             .sparkContext
             .textFile("./resources/u.item")
-            .map(line => {
-                val fields = line.split("\\|")
-                val id = fields(0).toInt
-                val name = fields(1)
-                (id, name)
-            }).collect().toMap
+
+		lines.map(line => {
+			val fields = line.split("\\|")
+			val id = fields(0).toInt
+			val name = fields(1)
+			(id, name)
+		}).collect().toMap
     }
 }
