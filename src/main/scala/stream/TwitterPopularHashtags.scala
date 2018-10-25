@@ -2,9 +2,9 @@ package stream
 
 import org.apache.log4j.{Level, LogManager, Logger}
 import org.apache.spark.streaming.{Seconds, StreamingContext}
-import org.apache.spark.streaming.twitter._
+import org.apache.spark.streaming.twitter.TwitterUtils
 
-object PopularHashtags {
+object TwitterPopularHashtags {
 
     def main(args: Array[String]): Unit = {
         val log = LogManager.getRootLogger
@@ -12,22 +12,25 @@ object PopularHashtags {
 
         setupTwitter
 
+        //        val sparkConf = new SparkConf()
+        //            .setAppName("TwitterPopularHashtags")
+        //            .setMaster("local[2]")
+        //        val ssc = new StreamingContext(sparkConf, Seconds(1))
+
         val ssc = new StreamingContext("local[*]", "PopularHashtags", Seconds(1))
         Logger.getLogger("org").setLevel(Level.ERROR)
 
         val stream = TwitterUtils.createStream(ssc, None)
-        val hashtags = stream.flatMap(status => status.getText.split(" ").filter(_.startsWith("#")))
 
-        val topCounts10 = hashtags.map((_, 1)).reduceByKeyAndWindow(_ + _, Seconds(10))
-            .map{case (topic, count) => (count, topic)}
-            .transform(_.sortByKey(false))
+        val messages = stream.map(_.getText)
+        val words = messages.flatMap(_.split(" "))
+        val hashtags = words.filter(_.startsWith("#"))
+        val hashTagsMap = hashtags.map((_, 1))
+        val hashAndCount = hashTagsMap.reduceByKeyAndWindow(_ + _, _ - _, Seconds(300), Seconds(1))
+        val results = hashAndCount.transform(_.sortBy(_._2, false))
+        results.print()
 
-        topCounts10.foreachRDD(rdd => {
-            val topList = rdd.take(10)
-            println("\nPopular topics in last 10 seconds (%s total):".format(rdd.count()))
-            topList.foreach{case (count, tag) => println("%s (%s tweets)".format(tag, count))}
-        })
-
+        ssc.checkpoint("./checkpoint/")
         ssc.start()
         ssc.awaitTermination()
     }
