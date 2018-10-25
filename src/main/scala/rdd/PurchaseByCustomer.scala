@@ -6,8 +6,6 @@ import org.apache.spark.SparkContext
 object PurchaseByCustomer {
 
     def main(args: Array[String]): Unit = {
-        Logger.getLogger("org").setLevel(Level.ERROR)
-
         val sc = new SparkContext("local[*]","PurchaseByCustomer")
 
         //customerid, itemid, amountspend

@@ -6,8 +6,6 @@ import org.apache.spark.SparkContext
 object RatingsCounter {
 
   def main(args: Array[String]): Unit = {
-    Logger.getLogger("org").setLevel(Level.ERROR)
-
     val sc = new SparkContext("local[*]", "RatingsCounter")
 
     val lines = sc.textFile("./resources/u.data")

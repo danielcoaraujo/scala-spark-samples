@@ -13,8 +13,6 @@ object FriendsByAge {
     }
 
     def main(args: Array[String]): Unit = {
-        Logger.getLogger("org").setLevel(Level.ERROR)
-
         val sc = new SparkContext("local[*]", "../resources/fakefriends.csv")
 
         val lines = sc.textFile("./resources/fakefriends.csv")

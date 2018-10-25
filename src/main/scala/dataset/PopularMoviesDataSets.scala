@@ -6,8 +6,6 @@ import org.apache.spark.sql.SparkSession
 object PopularMoviesDataSets {
 
 	def main(args: Array[String]) = {
-		Logger.getLogger("org").setLevel(Level.ERROR)
-
 		val spark = SparkSession.builder()
 			.appName("PopularMoviesDataSets")
 			.master("local[*]")
