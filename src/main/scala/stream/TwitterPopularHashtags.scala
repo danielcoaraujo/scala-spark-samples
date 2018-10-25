@@ -11,7 +11,7 @@ object TwitterPopularHashtags {
         val log = LogManager.getRootLogger
         log.info("Starting project: \n")
 
-        setupTwitter()
+        TwitterConfig.setupTwitter
 
         val sparkConf = new SparkConf()
             .setAppName("TwitterPopularHashtags")
@@ -31,12 +31,5 @@ object TwitterPopularHashtags {
         ssc.checkpoint("./checkpoint/")
         ssc.start()
         ssc.awaitTermination()
-    }
-
-    def setupTwitter()= {
-        System.setProperty("twitter4j.oauth.consumerKey", "")
-        System.setProperty("twitter4j.oauth.consumerSecret", "")
-        System.setProperty("twitter4j.oauth.accessToken", "")
-        System.setProperty("twitter4j.oauth.accessTokenSecret", "")
     }
 }

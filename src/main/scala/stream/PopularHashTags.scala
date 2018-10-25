@@ -3,6 +3,7 @@ package stream
 import org.apache.log4j.{Level, LogManager, Logger}
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.streaming.twitter._
+import com.typesafe.config._
 
 object PopularHashtags {
 
@@ -10,7 +11,7 @@ object PopularHashtags {
         val log = LogManager.getRootLogger
         log.info("Starting project: \n")
 
-        setupTwitter
+        TwitterConfig.setupTwitter
 
         val ssc = new StreamingContext("local[*]", "PopularHashtags", Seconds(1))
         Logger.getLogger("org").setLevel(Level.ERROR)
@@ -30,12 +31,5 @@ object PopularHashtags {
 
         ssc.start()
         ssc.awaitTermination()
-    }
-
-    def setupTwitter()= {
-        System.setProperty("twitter4j.oauth.consumerKey", "")
-        System.setProperty("twitter4j.oauth.consumerSecret", "")
-        System.setProperty("twitter4j.oauth.accessToken", "")
-        System.setProperty("twitter4j.oauth.accessTokenSecret", "")
     }
 }
