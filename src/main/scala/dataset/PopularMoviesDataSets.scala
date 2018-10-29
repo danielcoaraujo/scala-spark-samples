@@ -1,6 +1,5 @@
 package dataset
 
-import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.SparkSession
 
 object PopularMoviesDataSets {
@@ -13,7 +12,7 @@ object PopularMoviesDataSets {
 
 		import spark.implicits._
 		val movies = spark.sparkContext
-			.textFile("./resources/u.data")
+			.textFile("./src/main/data/u.data")
 			.map(parseToMovie)
 			.toDS()
 			.cache()
@@ -47,7 +46,7 @@ object PopularMoviesDataSets {
     def loadMovieNames(sparkSession: SparkSession) = {
         val lines = sparkSession
             .sparkContext
-            .textFile("./resources/u.item")
+            .textFile("./src/main/data/u.item")
 
         lines.map(line => {
             val fields = line.split("\\|")

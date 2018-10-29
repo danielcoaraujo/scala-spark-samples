@@ -1,6 +1,5 @@
 package rdd
 
-import org.apache.log4j.{Level, Logger}
 import org.apache.spark.SparkContext
 
 object FriendsByAge {
@@ -13,9 +12,9 @@ object FriendsByAge {
     }
 
     def main(args: Array[String]): Unit = {
-        val sc = new SparkContext("local[*]", "../resources/fakefriends.csv")
+        val sc = new SparkContext("local[*]", "FriendsByAge")
 
-        val lines = sc.textFile("./resources/fakefriends.csv")
+        val lines = sc.textFile("./src/main/data/fakefriends.csv")
 
         val mapAgeNumFriends = lines.map(parseLine)
 

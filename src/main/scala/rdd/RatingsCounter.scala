@@ -1,6 +1,5 @@
 package rdd
 
-import org.apache.log4j.{Level, Logger}
 import org.apache.spark.SparkContext
 
 object RatingsCounter {
@@ -8,7 +7,7 @@ object RatingsCounter {
   def main(args: Array[String]): Unit = {
     val sc = new SparkContext("local[*]", "RatingsCounter")
 
-    val lines = sc.textFile("./resources/u.data")
+    val lines = sc.textFile("./src/main/data/u.data")
 
     val ratings = lines.map(x => x.toString.split("\t")(2))
 

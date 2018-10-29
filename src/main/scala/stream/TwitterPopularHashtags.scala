@@ -1,6 +1,6 @@
 package stream
 
-import org.apache.log4j.{Level, LogManager, Logger}
+import org.apache.log4j.{LogManager}
 import org.apache.spark.SparkConf
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.streaming.twitter.TwitterUtils

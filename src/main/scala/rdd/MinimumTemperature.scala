@@ -1,13 +1,12 @@
 package rdd
 
-import org.apache.log4j.{Level, Logger}
 import org.apache.spark.SparkContext
 
 object MinimumTemperature {
 
 	def main(args: Array[String]): Unit = {
 		val sc = new SparkContext("local[*]", "MinimumTemperature")
-		val parsedLines = sc.textFile("./resources/1800.csv").map(parseLines)
+		val parsedLines = sc.textFile("./src/main/data/1800.csv").map(parseLines)
 
 		val minimumTemperature = parsedLines
 			.filter(line => line._2 == "TMIN")

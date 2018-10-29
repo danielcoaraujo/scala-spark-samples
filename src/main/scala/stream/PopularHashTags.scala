@@ -3,7 +3,6 @@ package stream
 import org.apache.log4j.{Level, LogManager, Logger}
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.streaming.twitter._
-import com.typesafe.config._
 
 object PopularHashtags {
 

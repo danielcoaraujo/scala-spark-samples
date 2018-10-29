@@ -1,6 +1,5 @@
 package dataset
 
-import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.SparkSession
 
 object FriendsByAge {
@@ -22,7 +21,7 @@ object FriendsByAge {
             .master("local[*]")
             .getOrCreate()
 
-        val lines = spark.sparkContext.textFile("./resources/fakefriends.csv")
+        val lines = spark.sparkContext.textFile("./src/main/data/fakefriends.csv")
 
         import spark.implicits._
         val people = lines.map(parseLine).toDS.cache()

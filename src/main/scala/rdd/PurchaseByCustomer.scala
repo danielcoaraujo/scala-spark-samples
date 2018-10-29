@@ -1,6 +1,5 @@
 package rdd
 
-import org.apache.log4j.{Level, Logger}
 import org.apache.spark.SparkContext
 
 object PurchaseByCustomer {
@@ -9,7 +8,7 @@ object PurchaseByCustomer {
         val sc = new SparkContext("local[*]","PurchaseByCustomer")
 
         //customerid, itemid, amountspend
-        val lines = sc.textFile("./resources/customer-orders.csv")
+        val lines = sc.textFile("./src/main/data/customer-orders.csv")
             .map(parseLine)
 
         val averageAmount = lines
